@@ -44,3 +44,35 @@ main = do
     putStrLn "---------------------------"
 
 
+-- Funções de Teste Individuais
+
+testeItem :: UTCTime -> IO ()
+testeItem _ = do
+    let item1 = Item "001" "Teclado Mecânico" 15 "Periféricos"
+    let item2 = Item "002" "Mouse Gamer" 25 "Periféricos"
+    let item3 = Item "003" "Monitor 24\"" 10 "Monitores"
+
+    putStrLn "Item original:"
+    print item1
+    
+    let serializado = show item1
+    putStrLn "Item serializado (String):"
+    putStrLn serializado
+    
+    let desserializado = read serializado :: Item
+    putStrLn "Item desserializado:"
+    print desserializado
+    
+    if item1 == desserializado
+        then putStrLn "SUCESSO: Serialização de Item está correta."
+        else putStrLn "FALHA: Problema na serialização de Item!"
+    
+    -- Testar múltiplos itens
+    putStrLn "\nTestando múltiplos itens:"
+    let itens = [item1, item2, item3]
+    let serializadoLista = show itens
+    let desserializadoLista = read serializadoLista :: [Item]
+    
+    if itens == desserializadoLista
+        then putStrLn "SUCESSO: Serialização de lista de Items está correta."
+        else putStrLn "FALHA: Problema na serialização de lista de Items!"
