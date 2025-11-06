@@ -165,3 +165,30 @@ testeInventario = do
     if inv == desserializado
         then putStrLn "\nSUCESSO: Serialização de Inventário está correta."
         else putStrLn "\nFALHA: Problema na serialização de Inventário!"
+
+-- Testes para casos extremos
+testeCasosExtremos :: IO ()
+testeCasosExtremos = do
+    putStrLn "\n--- Testes de Casos Extremos ---"
+    
+    -- Item com strings vazias
+    let itemVazio = Item "" "" 0 ""
+    testarSerializacao "Item vazio" itemVazio
+    
+    -- Item com caracteres especiais
+    let itemEspecial = Item "ID-001" "Item com \"aspas\" e 'apóstrofos'" 100 "Cat/Especial"
+    testarSerializacao "Item com caracteres especiais" itemEspecial
+    
+    -- StatusLog com mensagem longa
+    let statusLongo = Falha "Esta é uma mensagem de erro muito longa que \
+                            \contém múltiplas linhas e caracteres especiais"
+    testarSerializacao "Status com mensagem longa" statusLongo
+    
+    where
+        testarSerializacao :: (Show a, Read a, Eq a) => String -> a -> IO ()
+        testarSerializacao descricao valor = do
+            let serializado = show valor
+            let desserializado = read serializado
+            if valor == desserializado
+                then putStrLn $ "SUCESSO: " ++ descricao
+                else putStrLn $ "FALHA: " ++ descricao
