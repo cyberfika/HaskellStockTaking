@@ -80,7 +80,7 @@ testeAcaoLog :: IO ()
 testeAcaoLog = do
     let acoes = [Add, Remove, Update, QueryFail]
     
-    putStrLn "Testando todas as acoes:"
+    putStrLn "Testando todas as ações:"
     mapM_ testarAcao acoes
     
     where
@@ -91,4 +91,24 @@ testeAcaoLog = do
             if acao == desserializado
                 then putStrLn $ "SUCESSO: " ++ show acao
                 else putStrLn $ "FALHA: " ++ show acao
+
+testeStatusLog :: IO ()
+testeStatusLog = do
+    let status1 = Sucesso
+    let status2 = Falha "Estoque insuficiente"
+    let status3 = Falha "Item nao encontrado"
+    
+    let statusList = [status1, status2, status3]
+    
+    putStrLn "Testando todos os status:"
+    mapM_ testarStatus statusList
+    
+    where
+        testarStatus :: StatusLog -> IO ()
+        testarStatus status = do
+            let serializado = show status
+            let desserializado = read serializado :: StatusLog
+            if status == desserializado
+                then putStrLn $ "SUCESSO: " ++ show status
+                else putStrLn $ "FALHA: " ++ show status
 
