@@ -53,3 +53,15 @@ data StatusLog
     | Falha String
     deriving (Show, Read, Eq)
 
+
+-- Tipo: LogEntry
+-- Descrição: Representa uma entrada de log no sistema
+data LogEntry = LogEntry
+    { timestamp :: UTCTime
+    , acao :: AcaoLog
+    , detalhes :: String
+    , status :: StatusLog
+    } deriving (Show, Read, Eq)
+
+
+
