@@ -37,3 +37,19 @@ emptyInventario :: Inventario
 emptyInventario = Map.empty
 
 
+-- Tipo: AcaoLog (ADT)
+-- Descrição: Tipo algébrico para representar as diferentes ações do sistema
+data AcaoLog
+    = Add
+    | Remove
+    | Update
+    | QueryFail
+    deriving (Show, Read, Eq)
+
+-- Tipo: StatusLog (ADT)
+-- Descrição: Tipo algébrico para representar o resultado de uma operação
+data StatusLog
+    = Sucesso
+    | Falha String
+    deriving (Show, Read, Eq)
+
