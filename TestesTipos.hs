@@ -112,3 +112,35 @@ testeStatusLog = do
                 then putStrLn $ "SUCESSO: " ++ show status
                 else putStrLn $ "FALHA: " ++ show status
 
+testeLogEntry :: UTCTime -> IO ()
+testeLogEntry agora = do
+    let log1 = LogEntry agora Add "Adicionado item 001" Sucesso
+    let log2 = LogEntry agora Remove "Removido 5 unidades do item 002" Sucesso
+    let log3 = LogEntry agora Update "Tentativa de remover estoque insuficiente" 
+                        (Falha "Quantidade insuficiente")
+    
+    putStrLn "LogEntry original:"
+    print log1
+    
+    let serializado = show log1
+    putStrLn "\nLogEntry serializado:"
+    putStrLn serializado
+    
+    let desserializado = read serializado :: LogEntry
+    putStrLn "\nLogEntry desserializado:"
+    print desserializado
+    
+    if log1 == desserializado
+        then putStrLn "\nSUCESSO: Serialização de LogEntry está correta."
+        else putStrLn "\nFALHA: Problema na serialização de LogEntry!"
+
+    -- Testar lista de logs
+    let logs = [log1, log2, log3]
+    let serializadoLista = show logs
+    let desserializadoLista = read serializadoLista :: [LogEntry]
+    
+    if logs == desserializadoLista
+        then putStrLn "SUCESSO: Serialização de lista de LogEntry está correta."
+        else putStrLn "FALHA: Problema na serialização de lista de LogEntry!"
+
+
