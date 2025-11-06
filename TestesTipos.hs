@@ -35,7 +35,7 @@ main = do
     testeLogEntry agora
     putStrLn ""
 
-    putStrLn "Teste 5: Serialização de Inventario"
+    putStrLn "Teste 5: Serialização de Inventário"
     testeInventario
     putStrLn ""
 
@@ -143,4 +143,25 @@ testeLogEntry agora = do
         then putStrLn "SUCESSO: Serialização de lista de LogEntry está correta."
         else putStrLn "FALHA: Problema na serialização de lista de LogEntry!"
 
-
+testeInventario :: IO ()
+testeInventario = do
+    let item1 = Item "001" "Teclado" 15 "Periféricos"
+    let item2 = Item "002" "Mouse" 25 "Periféricos"
+    let item3 = Item "003" "Monitor" 10 "Monitores"
+    
+    let inv = Map.fromList [("001", item1), ("002", item2), ("003", item3)]
+    
+    putStrLn "Inventário original:"
+    print inv
+    
+    let serializado = show inv
+    putStrLn "\nInventário serializado:"
+    putStrLn serializado
+    
+    let desserializado = read serializado :: Inventario
+    putStrLn "\nInventário desserializado:"
+    print desserializado
+    
+    if inv == desserializado
+        then putStrLn "\nSUCESSO: Serialização de Inventário está correta."
+        else putStrLn "\nFALHA: Problema na serialização de Inventário!"
