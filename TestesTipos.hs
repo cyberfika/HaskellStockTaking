@@ -45,7 +45,6 @@ main = do
 
 
 -- Funções de Teste Individuais
-
 testeItem :: UTCTime -> IO ()
 testeItem _ = do
     let item1 = Item "001" "Teclado Mecânico" 15 "Periféricos"
@@ -76,3 +75,20 @@ testeItem _ = do
     if itens == desserializadoLista
         then putStrLn "SUCESSO: Serialização de lista de Items está correta."
         else putStrLn "FALHA: Problema na serialização de lista de Items!"
+
+testeAcaoLog :: IO ()
+testeAcaoLog = do
+    let acoes = [Add, Remove, Update, QueryFail]
+    
+    putStrLn "Testando todas as acoes:"
+    mapM_ testarAcao acoes
+    
+    where
+        testarAcao :: AcaoLog -> IO ()
+        testarAcao acao = do
+            let serializado = show acao
+            let desserializado = read serializado :: AcaoLog
+            if acao == desserializado
+                then putStrLn $ "SUCESSO: " ++ show acao
+                else putStrLn $ "FALHA: " ++ show acao
+
