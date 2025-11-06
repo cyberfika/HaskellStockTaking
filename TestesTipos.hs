@@ -39,6 +39,10 @@ main = do
     testeInventario
     putStrLn ""
 
+    putStrLn "Teste 6: Casos Extremos"
+    testeCasosExtremos
+    putStrLn ""
+
     putStrLn "---------------------------"
     putStrLn "Todos os testes concluídos."
     putStrLn "---------------------------"
@@ -47,8 +51,8 @@ main = do
 -- Funções de Teste Individuais
 testeItem :: UTCTime -> IO ()
 testeItem _ = do
-    let item1 = Item "001" "Teclado Mecânico" 15 "Periféricos"
-    let item2 = Item "002" "Mouse Gamer" 25 "Periféricos"
+    let item1 = Item "001" "Teclado Mecanico" 15 "Perifericos"
+    let item2 = Item "002" "Mouse Gamer" 25 "Perifericos"
     let item3 = Item "003" "Monitor 24\"" 10 "Monitores"
 
     putStrLn "Item original:"
@@ -145,8 +149,8 @@ testeLogEntry agora = do
 
 testeInventario :: IO ()
 testeInventario = do
-    let item1 = Item "001" "Teclado" 15 "Periféricos"
-    let item2 = Item "002" "Mouse" 25 "Periféricos"
+    let item1 = Item "001" "Teclado" 15 "Perifericos"
+    let item2 = Item "002" "Mouse" 25 "Perifericos"
     let item3 = Item "003" "Monitor" 10 "Monitores"
     
     let inv = Map.fromList [("001", item1), ("002", item2), ("003", item3)]
@@ -176,12 +180,12 @@ testeCasosExtremos = do
     testarSerializacao "Item vazio" itemVazio
     
     -- Item com caracteres especiais
-    let itemEspecial = Item "ID-001" "Item com \"aspas\" e 'apóstrofos'" 100 "Cat/Especial"
+    let itemEspecial = Item "ID-001" "Item com \"aspas\" e 'apostrofos'" 100 "Cat/Especial"
     testarSerializacao "Item com caracteres especiais" itemEspecial
     
     -- StatusLog com mensagem longa
-    let statusLongo = Falha "Esta é uma mensagem de erro muito longa que \
-                            \contém múltiplas linhas e caracteres especiais"
+    let statusLongo = Falha "Esta eh uma mensagem de erro muito longa que \
+                            \contem multiplas linhas e caracteres especiais"
     testarSerializacao "Status com mensagem longa" statusLongo
     
     where

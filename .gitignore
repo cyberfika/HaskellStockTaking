@@ -1,0 +1,8 @@
+# Ignore arquivos de compilação do GHC
+*.hi
+*.o
+*.exe
+TestesTipos
+
+# Configurações locais
+.vscode/
