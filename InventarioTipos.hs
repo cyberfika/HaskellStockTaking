@@ -17,6 +17,7 @@ import qualified Data.Map as Map
 import Data.Time (UTCTime)
 
 
+-- Definição dos Tipos de Dados
 -- Tipo: Item
 -- Descrição: Representa um item no inventário
 data Item = Item
@@ -46,6 +47,7 @@ data AcaoLog
     | QueryFail
     deriving (Show, Read, Eq)
 
+
 -- Tipo: StatusLog (ADT)
 -- Descrição: Tipo algébrico para representar o resultado de uma operação
 data StatusLog
@@ -64,4 +66,21 @@ data LogEntry = LogEntry
     } deriving (Show, Read, Eq)
 
 
+-- Exemplos de uso e validação
+-- Exemplo de criação de um Item
+exemploItem :: Item
+exemploItem = Item
+    { itemID = "001"
+    , nome = "Teclado Mecanico"
+    , quantidade = 15
+    , categoria = "Perifericos"
+    }
 
+-- Exemplo de criação de LogEntry
+exemploLog :: UTCTime -> LogEntry
+exemploLog tempo = LogEntry
+    { timestamp = tempo
+    , acao = Add
+    , detalhes = "Adicionado item 001 - Teclado Mecanico"
+    , status = Sucesso
+    }
