@@ -6,3 +6,7 @@ TestesTipos
 
 # Configurações locais
 .vscode/
+
+*.txt
+jcfs_only/*.*
+documentation/*.*
