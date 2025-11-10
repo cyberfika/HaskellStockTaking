@@ -1,6 +1,6 @@
 -- Arquivo: Main.hs
 -- Descrição: Arquivo principal que integra todos os módulos do sistema
--- Equipe: Alunos 1, 2 e 3
+
 
 import IOPersistencia (main)
 
