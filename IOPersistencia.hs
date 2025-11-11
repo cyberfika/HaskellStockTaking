@@ -22,14 +22,16 @@ import InventarioTipos
 -- (addItem, removeItem, updateQty, ResultadoOperacao)
 import LogicaNegocio
 
+-- Importaa as funções do módulo de Análise do Aluno 4
+-- (formatarRelatorioCompleto, historicoPorItem, formatarLog)
+import Analise (formatarRelatorioCompleto, historicoPorItem, formatarLog)
+
 -- Importa o módulo Map (usado para o tipo Inventario)
 -- 'qualified' significa que usamos Map.insert, Map.lookup, etc.
 import qualified Data.Map as Map
 
 -- Importa funções de tempo para registrar quando operações ocorrem
--- getCurrentTime: pega o horário atual
--- UTCTime: tipo que representa data e hora
-import Data.Time (getCurrentTime, UTCTime)
+import Data.Time (getCurrentTime, UTCTime, TimeZone(..))
 
 -- Importa funções de I/O do sistema
 -- hFlush: força o buffer a ser escrito imediatamente
@@ -109,10 +111,8 @@ carregarInventario = do
 -- Função: carregarLogs
 -- Descrição: Tenta ler os logs de auditoria do arquivo Auditoria.log
 -- Tipo: IO [LogEntry] significa que retorna uma lista de LogEntry em IO
--- IMPORTANTE: Também não quebra se arquivo não existir
 carregarLogs :: IO [LogEntry]
 carregarLogs = do
-    -- Mesma lógica de carregarInventario, mas para o arquivo de log
     -- Tenta ler, se falhar chama o handler
     conteudo <- catch (readFile arquivoAuditoria)
                       handleArquivoNaoExiste
@@ -125,9 +125,28 @@ carregarLogs = do
             return []
         else do
             putStrLn "[INFO] Log de auditoria carregado com sucesso!"
-            -- read converte String para [LogEntry]
-            -- :: [LogEntry]: anotação de tipo explícita
-            return (read conteudo :: [LogEntry])
+            
+            -- 1. Separa o conteúdo em linhas
+            let linhas = lines conteudo
+            
+            -- 2. Tenta converter cada linha individualmente
+            --    'reads' é seguro, retorna [] em caso de falha
+            let parseLinha l = case reads l of
+                                 [(log, "")] -> Just log -- Sucesso
+                                 _           -> Nothing  -- Falha no parse
+            
+            let logsMaybe = map parseLinha linhas
+            
+            -- 3. Filtra apenas os 'Just' (sucessos) e extrai os valores
+            let logs = [log | Just log <- logsMaybe]
+            
+            -- 4. Informa se alguma linha estava corrompida
+            let falhas = length linhas - length logs
+            if falhas > 0
+                then putStrLn $ "[AVISO] Ignoradas " ++ show falhas ++ " linhas mal formatadas no Auditoria.log."
+                else return ()
+                
+            return logs
   where
     -- Função auxiliar idêntica à de carregarInventario
     handleArquivoNaoExiste :: IOException -> IO String
@@ -268,10 +287,7 @@ parseComando input =
                 -- "" significa que consumiu toda a string
                 [(quantidade, "")] -> 
                     -- CmdAdd: cria comando de adicionar
-                    -- unwords: junta lista de palavras de volta em String
-                    -- (cat:drop 4 tokens): pega categoria e resto
-                    -- drop 4: remove os 4 primeiros elementos (add, id, nome, qtd)
-                    CmdAdd idItem nomeItem quantidade (unwords (cat:drop 4 tokens))
+                    CmdAdd idItem nomeItem quantidade (unwords (drop 4 tokens))
                 
                 -- Qualquer outro caso (_): conversão falhou
                 _ -> CmdInvalido "Quantidade invalida para comando 'add'"
@@ -486,24 +502,49 @@ processarComando cmd inventario = do
             return inventario
 
         -- ====================================================================
-        -- COMANDO: REPORT (Gerar relatório - para Aluno 4)
+        -- COMANDO: REPORT (Gerar relatório - *** ATUALIZADO PELO ALUNO 4 ***)
         -- ====================================================================
         CmdReport -> do
             putStrLn "\n[INFO] Carregando logs para gerar relatorio..."
             
             -- Carrega todos os logs do arquivo
             logs <- carregarLogs
+
+            -- Em vez de pegar do servidor (que é UTC), definimos -180 minutos
+            -- Foi feito uma gambiarra aqui para definir o fuso horário de Brasília (BRT)
+            let tz = TimeZone { timeZoneMinutes = -180, timeZoneSummerOnly = False, timeZoneName = "BRT" }
             
-            putStrLn "\n========== RELATORIO DE LOGS =========="
-            -- length: retorna tamanho da lista
-            putStrLn $ "Total de logs: " ++ show (length logs)
-            putStrLn "======================================\n"
+            if null logs
+            then putStrLn "\n[INFO] Nenhum log encontrado para gerar relatorio."
+            else do
+                -- Chama a função de formatação do módulo Analise
+                -- Passa 'tz' como argumento
+                let relatorio = formatarRelatorioCompleto tz logs
+                putStrLn ""
+                putStrLn relatorio
             
-            -- NOTA: Aqui o Aluno 4 vai adicionar as funções de análise
-            putStrLn "[NOTA] Relatorios detalhados serao implementados pelo Aluno 4"
+            -- Permitir consulta de histórico por item
+            putStrLn "\nDigite um ID de item para ver seu historico:"
+            putStr "> "
+            hFlush stdout
+            idInput <- getLine
             
-            -- Não modifica inventário
-            return inventario
+            if null idInput
+            then return inventario -- Retorna inventário e continua
+            else do
+                -- 'tz' já foi definido acima, então podemos reusá-lo
+                
+                -- Chama a função de histórico do módulo Analise
+                let historico = historicoPorItem logs idInput
+                putStrLn $ "\n--- Historico para Item ID: " ++ idInput ++ " ---"
+                if null historico
+                then putStrLn "Nenhum registro encontrado para este item."
+                else 
+                    -- Imprime cada log formatado
+                    -- Passa 'tz' para formatarLog
+                    mapM_ (putStrLn . ("  " ++) . formatarLog tz) historico
+                putStrLn "---------------------------------------------"
+                return inventario -- Retorna inventário
 
         -- ====================================================================
         -- COMANDO: HELP (Mostrar ajuda)
@@ -580,7 +621,7 @@ mostrarAjuda = do
     putStrLn "  - Lista todos os itens do inventario"
     putStrLn ""
     putStrLn "report"
-    putStrLn "  - Gera relatorio de logs (sera implementado pelo Aluno 4)"
+    putStrLn "  - Gera relatorio de logs e permite consultar historico"
     putStrLn ""
     putStrLn "help"
     putStrLn "  - Mostra esta mensagem de ajuda"
@@ -715,8 +756,7 @@ main = do
 
 -- ============================================================================
 -- FIM DO MÓDULO IOPersistencia.hs
--- ============================================================================
--- RESUMO DO QUE ESTE MÓDULO FAZ:
+-- ============================================================================-- RESUMO DO QUE ESTE MÓDULO FAZ:
 --
 -- 1. INICIALIZAÇÃO:
 --    - carregarInventario: lê Inventario.dat (com tratamento de erro)
