@@ -14,7 +14,7 @@
 | [Aluno 1 Nome] | @usuario1 | Arquiteto de Dados |
 | [Aluno 2 Nome] | @usuario2 | Lógica de Negócio Pura |
 | [Aluno 3 Jafte Carneiro Fagundes da Silva] | @cyberfika | Módulo de I/O e Persistência |
-| [Aluno 4 Nome] | @usuario4 | Validação, Documentação e Gerenciamento |
+| [Aluno 4 Ângelo Piovezan Jorgeto] | @PJorgeto | Validação, Documentação e Gerenciamento |
 
 ---
 
@@ -154,10 +154,40 @@ exit
 
 **Resultado Obtido:**
 ```
-[DOCUMENTAR AQUI OS RESULTADOS DO TESTE]
+==========================================
+   SISTEMA DE GERENCIAMENTO DE INVENTARIO
+==========================================
+
+[INICIALIZACAO] Carregando dados do sistema...
+[INFO] Inventario carregado com sucesso!
+[INFO] Log de auditoria carregado com sucesso!
+[INFO] Inventario contem 3 item(ns)
+[INFO] Log contem 3 entrada(s)
+
+Digite 'help' para ver os comandos disponiveis.
+
+> list
+
+========== INVENTARIO ATUAL ==========
+  ID: 001
+  Nome: Teclado
+  Quantidade: 10
+  Categoria: Perifericos
+  ---
+  ID: 002
+  Nome: Mouse
+  Quantidade: 15
+  Categoria: Perifericos
+  ---
+  ID: 003
+  Nome: Monitor
+  Quantidade: 5
+  Categoria: Monitores
+  ---
+======================================
 ```
 
-**Status:** [ ] Passou | [ ] Falhou
+**Status:** [X] Passou | [ ] Falhou
 
 ---
 
@@ -186,10 +216,40 @@ exit
 
 **Resultado Obtido:**
 ```
-[DOCUMENTAR AQUI OS RESULTADOS DO TESTE]
+==========================================
+   SISTEMA DE GERENCIAMENTO DE INVENTARIO
+==========================================
+
+[INICIALIZACAO] Carregando dados do sistema...
+[INFO] Inventario carregado com sucesso!
+[INFO] Log de auditoria carregado com sucesso!
+[INFO] Inventario contem 3 item(ns)
+[INFO] Log contem 3 entrada(s)
+
+Digite 'help' para ver os comandos disponiveis.
+
+> add 004 Teclado_Gamer 10 Perifericos
+
+[SUCESSO] Item adicionado: Teclado_Gamer (ID: 004)
+[PERSISTENCIA] Inventario salvo em Inventario.dat
+[AUDITORIA] Log registrado em Auditoria.log
+
+> remove 004 15
+
+[ERRO] Erro: Estoque insuficiente. Disponivel: 10, Solicitado: 15
+[AUDITORIA] Log registrado em Auditoria.log
+```
+```
+Arquivo Auditoria.log:
+
+LogEntry {timestamp = 2025-11-11 22:01:57.435906613 UTC, acao = Add, detalhes = "Adicionado item 'Teclado' (ID: 001) com quantidade 10 na categoria Perifericos", status = Sucesso}
+LogEntry {timestamp = 2025-11-11 22:02:08.882197285 UTC, acao = Add, detalhes = "Adicionado item 'Mouse' (ID: 002) com quantidade 15 na categoria Perifericos", status = Sucesso}
+LogEntry {timestamp = 2025-11-11 22:02:17.65382862 UTC, acao = Add, detalhes = "Adicionado item 'Monitor' (ID: 003) com quantidade 5 na categoria Monitores", status = Sucesso}
+LogEntry {timestamp = 2025-11-11 22:05:45.181329383 UTC, acao = Add, detalhes = "Adicionado item 'Teclado_Gamer' (ID: 004) com quantidade 10 na categoria Perifericos", status = Sucesso}
+LogEntry {timestamp = 2025-11-11 22:05:56.640684341 UTC, acao = Remove, detalhes = "Falha ao remover do item ID: 004", status = Falha "Erro: Estoque insuficiente. Disponivel: 10, Solicitado: 15"}
 ```
 
-**Status:** [ ] Passou | [ ] Falhou
+**Status:** [X] Passou | [ ] Falhou
 
 ---
 
@@ -210,10 +270,48 @@ exit
 
 **Resultado Obtido:**
 ```
-[DOCUMENTAR AQUI OS RESULTADOS DO TESTE]
+==========================================
+   SISTEMA DE GERENCIAMENTO DE INVENTARIO
+==========================================
+
+[INICIALIZACAO] Carregando dados do sistema...
+[INFO] Inventario carregado com sucesso!
+[INFO] Log de auditoria carregado com sucesso!
+[INFO] Inventario contem 4 item(ns)
+[INFO] Log contem 5 entrada(s)
+
+Digite 'help' para ver os comandos disponiveis.
+
+> report
+
+[INFO] Carregando logs para gerar relatorio...
+[INFO] Log de auditoria carregado com sucesso!
+
+========== RELATORIO DE ANALISE DE LOGS ==========
+
+** Sumario Geral **
+Total de entradas de log: 5
+Total de operacoes com falha: 1
+Item mais movimentado (com sucesso): 001 (com 1 movimentacoes)
+
+---
+
+** Detalhe de Logs de Erro (1) **
+  [2025-11-11 19:05:56] [Remove] [FALHA: Erro: Estoque insuficiente. Disponivel: 10, Solicitado: 15] Falha ao remover do item ID: 004
+
+====================================================
+
+
+Digite um ID de item para ver seu historico (ou deixe em branco para pular):
+> 004
+
+--- Historico para Item ID: 004 ---
+  [2025-11-11 19:05:45] [Add] [SUCESSO] Adicionado item 'Teclado_Gamer' (ID: 004) com quantidade 10 na categoria Perifericos
+  [2025-11-11 19:05:56] [Remove] [FALHA: Erro: Estoque insuficiente. Disponivel: 10, Solicitado: 15] Falha ao remover do item ID: 004
+---------------------------------------------
 ```
 
-**Status:** [ ] Passou | [ ] Falhou
+**Status:** [X] Passou | [ ] Falhou
 
 **Nota:** A implementação detalhada das funções de relatório (`logsDeErro`, `historicoPorItem`, `itemMaisMovimentado`) será realizada pelo Aluno 4.
 
@@ -314,9 +412,8 @@ Gerencia I/O e persistência:
 
 ### Módulo 4: Analise.hs (Aluno 4)
 
-**[A SER IMPLEMENTADO]**
-
 Funções de análise de logs:
+
 - `historicoPorItem :: [LogEntry] -> String -> [LogEntry]`
 - `logsDeErro :: [LogEntry] -> [LogEntry]`
 - `itemMaisMovimentado :: [LogEntry] -> String`
@@ -334,7 +431,7 @@ Funções de análise de logs:
 - [x] Sistema carrega dados corretamente
 - [x] Sistema salva dados corretamente
 - [x] Log de auditoria funcional
-- [ ] Relatórios implementados (Aluno 4)
+- [X] Relatórios implementados
 
 ### Organização e Legibilidade (15 pontos)
 
@@ -358,9 +455,9 @@ Funções de análise de logs:
 
 O projeto segue rigorosamente o princípio de separação entre:
 
-1. **Funções Puras** (LogicaNegocio.hs):
+1. **Funções Puras** (LogicaNegocio.hs, Analise.hs):
    - Não contêm nenhuma operação de I/O
-   - Retornam `Either String ResultadoOperacao`
+   - Retornam `Either String ResultadoOperacao` (Logica) ou dados (Analise)
    - Totalmente testáveis e previsíveis
 
 2. **Funções Impuras** (IOPersistencia.hs):
@@ -388,7 +485,7 @@ O sistema implementa dois níveis de tratamento de erros:
 ### Erro: "File not found"
 **Solução:** É esperado na primeira execução. O sistema cria os arquivos automaticamente.
 
-### Erro: "Parse error in Inventario.dat"
+### Erro: "Parse error in Inventario.dat" / "a.out: Prelude.read: no parse"
 **Solução:** Deletar os arquivos `.dat` e `.log` e reiniciar o sistema.
 
 ### Erro: "Item já existe"
@@ -410,5 +507,5 @@ Para dúvidas sobre o projeto, entre em contato com os membros da equipe atravé
 
 ---
 
-**Última atualização:** 09/11/2025  
+**Última atualização:** 11/11/2025  
 **Versão:** 1.0
