@@ -55,7 +55,7 @@ parseComando input =
         ("add":idItem:nomeItem:qtd:cat:_) ->
             case reads qtd of
                 [(quantidade, "")] -> 
-                    CmdAdd idItem nomeItem quantidade (unwords (cat:drop 4 tokens))
+                    CmdAdd idItem nomeItem quantidade (unwords (drop 4 tokens))
                 _ -> CmdInvalido "Quantidade invalida para comando 'add'"
         
         ("remove":idItem:qtd:_) ->
