@@ -7,14 +7,14 @@
 **Professor:** Frank Coelho de Alcantara  
 **Atividade:** RA2 - Sistema de Inventário em Haskell
 
-### Equipe (em ordem de Responsabilidade)
+### Equipe (em ordem de responsabilidade)
 
 | Nome do Aluno | GitHub Username | Responsabilidade |
 |---------------|-----------------|------------------|
-| [Aluno 1 Nome] | @usuario1 | Arquiteto de Dados |
-| [Aluno 2 Nome] | @usuario2 | Lógica de Negócio Pura |
-| [Aluno 3 Jafte Carneiro Fagundes da Silva] | @cyberfika | Módulo de I/O e Persistência |
-| [Aluno 4 Ângelo Piovezan Jorgeto] | @PJorgeto | Validação, Documentação e Gerenciamento |
+| **Renato Pestana de Gouveia** | @rpgouveia | Arquitetura de Dados e Tipos |
+| **Fernando Alonso P. da Silva** | @fernandooal | Lógica de Negócio Pura (módulo funcional) |
+| **Jafte Carneiro Fagundes da Silva** | @cyberfika | Módulo de I/O, Persistência, Parser e Loop Principal |
+| **Ângelo Piovezan Jorgeto** | @PJorgeto | Análise de Logs, Validação, Documentação e Testes |
 
 ---
 
@@ -31,13 +31,12 @@ Sistema de gerenciamento de inventário desenvolvido em Haskell que implementa:
 
 ---
 
-## 🔗 Links de Execução
 
-### Online GDB
-🔗 [Executar no Online GDB](https://www.onlinegdb.com/YOUR_PROJECT_LINK)
+## 🔗 Execução Online
 
-### Repl.it
-🔗 [Executar no Repl.it](https://repl.it/@YOUR_USERNAME/YOUR_PROJECT)
+O projeto pode ser executado diretamente no OnlineGDB:
+
+👉 **https://onlinegdb.com/0W81YtrSWi**
 
 ---
 
@@ -45,36 +44,22 @@ Sistema de gerenciamento de inventário desenvolvido em Haskell que implementa:
 
 ```
 projeto/
-├── InventarioTipos.hs      # Aluno 1 - Definição de tipos de dados
-├── LogicaNegocio.hs        # Aluno 2 - Funções puras de lógica
-├── IOPersistencia.hs       # Aluno 3 - I/O e persistência
-├── Analise.hs              # Aluno 4 - Análise de logs e relatórios
-├── Main.hs                 # Arquivo principal
-├── Inventario.dat          # Arquivo de dados (gerado em runtime)
-├── Auditoria.log           # Arquivo de log (gerado em runtime)
-└── README.md               # Este arquivo
+├── InventarioTipos.hs        # Tipos e estruturas do sistema
+├── LogicaNegocio.hs          # Funções puras (add, remove, update)
+├── IOPersistencia.hs         # Entrada/Saída e persistência
+├── Analise.hs                # Relatórios e análise de logs
+├── Main.hs                   # Loop principal e parser CLI
+├── TestesTipos.hs            # Testes unitários dos tipos
+├── TestesLogicaNegocio.hs    # Testes puros da lógica de negócio
+├── Inventario.dat            # Persistência do inventário (runtime)
+├── Auditoria.log             # Auditoria de operações (runtime)
+└── README.md                 # Este documento
 ```
-
 ---
 
 ## 🚀 Como Compilar e Executar
 
-### Opção 1: Online GDB
-
-1. Acesse: https://www.onlinegdb.com/
-2. Selecione linguagem: **Haskell**
-3. Copie todos os arquivos `.hs` para o editor
-4. Certifique-se de que `Main.hs` está como arquivo principal
-5. Clique em **Run**
-
-### Opção 2: Repl.it
-
-1. Acesse: https://repl.it/
-2. Crie um novo Repl em **Haskell**
-3. Faça upload de todos os arquivos `.hs`
-4. Execute o comando: `runhaskell Main.hs`
-
-### Opção 3: Ambiente Local
+### Ambiente Local
 
 ```bash
 # Compilar
@@ -83,6 +68,17 @@ ghc --make Main.hs -o inventario
 # Executar
 ./inventario
 ```
+
+No OnlineGDB
+
+1.	Acesse: https://onlinegdb.com/0W81YtrSWi
+2. Selecione linguagem: **Haskell**
+3. Copie todos os arquivos `.hs` para o editor (caso ainda não estejam todos lá)
+4. Certifique-se de que `Main.hs` está como arquivo principal
+5. Clique em **Run**
+
+Link alternativo: https://onlinegdb.com/3pgueIh8h
+---
 
 ---
 
@@ -493,13 +489,6 @@ O sistema implementa dois níveis de tratamento de erros:
 
 ---
 
-## 📚 Referências
-
-- Real World Haskell - O'Sullivan, Stewart, Goerzen
-- Learn You a Haskell for Great Good - Miran Lipovača
-- Haskell Documentation: https://www.haskell.org/documentation/
-
----
 
 ## 📧 Contato
 
@@ -507,5 +496,6 @@ Para dúvidas sobre o projeto, entre em contato com os membros da equipe atravé
 
 ---
 
-**Última atualização:** 11/11/2025  
-**Versão:** 1.0
+**Última atualização:** 13/11/2025  
+**Versão:** 1.2
+
