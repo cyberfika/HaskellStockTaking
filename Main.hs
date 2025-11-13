@@ -21,8 +21,11 @@ import IOPersistencia (Comando(..), parseComando, arquivoInventario, arquivoAudi
 -- Importa o módulo Map para manipular o inventário
 import qualified Data.Map as Map
 
+import Analise (formatarRelatorioCompleto)
+
 -- Importa funções de tempo
 import Data.Time (getCurrentTime, UTCTime)
+import Data.Time.LocalTime (getCurrentTimeZone)
 
 -- Importa funções de I/O
 import System.IO (hFlush, stdout)
@@ -147,7 +150,8 @@ processarComando :: Comando -> Inventario -> IO Inventario
 processarComando cmd inventario = do
     tempo <- getCurrentTime
     
-    case cmd of
+    case cmd of        
+
         CmdAdd idItem nomeItem qtd cat -> do
             let novoItem = Item
                     { itemID = idItem
@@ -225,10 +229,13 @@ processarComando cmd inventario = do
         CmdReport -> do
             putStrLn "\n[INFO] Carregando logs para gerar relatorio..."
             logs <- carregarLogs
-            putStrLn "\n========== RELATORIO DE LOGS =========="
-            putStrLn $ "Total de logs: " ++ show (length logs)
-            putStrLn "======================================\n"
-            putStrLn "[NOTA] Relatorios detalhados serao implementados pelo Aluno 4"
+            
+            -- Obtém o timezone atual para formatação correta das datas
+            tz <- getCurrentTimeZone
+            
+            -- Gera o relatório usando o módulo Analise.hs do Aluno 4
+            putStrLn $ formatarRelatorioCompleto tz logs
+            
             return inventario
 
         CmdHelp -> do
