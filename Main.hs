@@ -24,8 +24,7 @@ import qualified Data.Map as Map
 import Analise (formatarRelatorioCompleto, historicoPorItem, formatarLog)
 
 -- Importa funções de tempo
-import Data.Time (getCurrentTime, UTCTime)
-import Data.Time.LocalTime (getCurrentTimeZone)
+import Data.Time (getCurrentTime, UTCTime, TimeZone(..))
 
 -- Importa funções de I/O
 import System.IO (hFlush, stdout)
@@ -230,8 +229,8 @@ processarComando cmd inventario = do
             putStrLn "\n[INFO] Carregando logs para gerar relatorio..."
             logs <- carregarLogs
             
-            -- Obtém o timezone atual para formatação correta das datas
-            tz <- getCurrentTimeZone
+            -- Faz uma gambiarra para definir o fuso horário de Brasília
+            let tz = TimeZone { timeZoneMinutes = -180, timeZoneSummerOnly = False, timeZoneName = "BRT" }
             
             -- Gera o relatório usando o módulo Analise.hs
             if null logs

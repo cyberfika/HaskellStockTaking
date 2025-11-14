@@ -155,6 +155,40 @@ exit
 ==========================================
 
 [INICIALIZACAO] Carregando dados do sistema...
+[INFO] Arquivo Inventario.dat nao encontrado.
+[INFO] Iniciando com inventario vazio.
+[INFO] Arquivo Auditoria.log nao encontrado.
+[INFO] Iniciando com log de auditoria vazio.
+[INFO] Inventario contem 0 item(ns)
+[INFO] Log contem 0 entrada(s)
+
+Digite 'help' para ver os comandos disponiveis.
+
+> add 001 Teclado 10 Perifericos
+
+[SUCESSO] Item adicionado: Teclado (ID: 001)
+[PERSISTENCIA] Inventario salvo em Inventario.dat
+[AUDITORIA] Log registrado em Auditoria.log
+
+> add 002 Mouse 15 Perifericos
+
+[SUCESSO] Item adicionado: Mouse (ID: 002)
+[PERSISTENCIA] Inventario salvo em Inventario.dat
+[AUDITORIA] Log registrado em Auditoria.log
+
+> add 003 Monitor 5 Monitores
+
+[SUCESSO] Item adicionado: Monitor (ID: 003)
+[PERSISTENCIA] Inventario salvo em Inventario.dat
+[AUDITORIA] Log registrado em Auditoria.log
+
+> exit
+
+==========================================
+   SISTEMA DE GERENCIAMENTO DE INVENTARIO
+==========================================
+
+[INICIALIZACAO] Carregando dados do sistema...
 [INFO] Inventario carregado com sucesso!
 [INFO] Log de auditoria carregado com sucesso!
 [INFO] Inventario contem 3 item(ns)
@@ -232,9 +266,35 @@ Digite 'help' para ver os comandos disponiveis.
 
 > remove 004 15
 
-[ERRO] Erro: Estoque insuficiente. Disponivel: 10, Solicitado: 15
+[ERRO] Estoque insuficiente
 [AUDITORIA] Log registrado em Auditoria.log
+
+> list
+
+========== INVENTARIO ATUAL ==========
+  ID: 001
+  Nome: Teclado
+  Quantidade: 10
+  Categoria: Perifericos
+  ---
+  ID: 002
+  Nome: Mouse
+  Quantidade: 15
+  Categoria: Perifericos
+  ---
+  ID: 003
+  Nome: Monitor
+  Quantidade: 5
+  Categoria: Monitores
+  ---
+  ID: 004
+  Nome: Teclado_Gamer
+  Quantidade: 10
+  Categoria: Perifericos
+  ---
+======================================
 ```
+
 ```
 Arquivo Auditoria.log:
 
@@ -282,7 +342,6 @@ Digite 'help' para ver os comandos disponiveis.
 
 [INFO] Carregando logs para gerar relatorio...
 [INFO] Log de auditoria carregado com sucesso!
-
 ========== RELATORIO DE ANALISE DE LOGS ==========
 
 ** Sumario Geral **
@@ -293,17 +352,17 @@ Item mais movimentado (com sucesso): 001 (com 1 movimentacoes)
 ---
 
 ** Detalhe de Logs de Erro (1) **
-  [2025-11-11 19:05:56] [Remove] [FALHA: Erro: Estoque insuficiente. Disponivel: 10, Solicitado: 15] Falha ao remover do item ID: 004
+  [2025-11-14 00:30:16] [Remove] [FALHA: Estoque insuficiente] Falha ao remover do item ID: 004
 
 ====================================================
 
 
-Digite um ID de item para ver seu historico (ou deixe em branco para pular):
+Digite um ID de item para ver seu historico (ou aperte o ENTER para pular):
 > 004
 
 --- Historico para Item ID: 004 ---
-  [2025-11-11 19:05:45] [Add] [SUCESSO] Adicionado item 'Teclado_Gamer' (ID: 004) com quantidade 10 na categoria Perifericos
-  [2025-11-11 19:05:56] [Remove] [FALHA: Erro: Estoque insuficiente. Disponivel: 10, Solicitado: 15] Falha ao remover do item ID: 004
+  [2025-11-14 00:29:49] [Add] [SUCESSO] Adicionado item 'Teclado_Gamer' (ID: 004) com quantidade 10 na categoria Perifericos
+  [2025-11-14 00:30:16] [Remove] [FALHA: Estoque insuficiente] Falha ao remover do item ID: 004
 ---------------------------------------------
 ```
 
@@ -496,6 +555,6 @@ Para dúvidas sobre o projeto, entre em contato com os membros da equipe atravé
 
 ---
 
-**Última atualização:** 13/11/2025  
-**Versão:** 1.2
+**Última atualização:** 14/11/2025  
+**Versão:** 1.3
 
