@@ -21,11 +21,10 @@ import IOPersistencia (Comando(..), parseComando, arquivoInventario, arquivoAudi
 -- Importa o módulo Map para manipular o inventário
 import qualified Data.Map as Map
 
-import Analise (formatarRelatorioCompleto)
+import Analise (formatarRelatorioCompleto, historicoPorItem, formatarLog)
 
 -- Importa funções de tempo
-import Data.Time (getCurrentTime, UTCTime)
-import Data.Time.LocalTime (getCurrentTimeZone)
+import Data.Time (getCurrentTime, UTCTime, TimeZone(..))
 
 -- Importa funções de I/O
 import System.IO (hFlush, stdout)
@@ -230,13 +229,34 @@ processarComando cmd inventario = do
             putStrLn "\n[INFO] Carregando logs para gerar relatorio..."
             logs <- carregarLogs
             
-            -- Obtém o timezone atual para formatação correta das datas
-            tz <- getCurrentTimeZone
+            -- Faz uma gambiarra para definir o fuso horário de Brasília
+            let tz = TimeZone { timeZoneMinutes = -180, timeZoneSummerOnly = False, timeZoneName = "BRT" }
             
-            -- Gera o relatório usando o módulo Analise.hs do Aluno 4
-            putStrLn $ formatarRelatorioCompleto tz logs
+            -- Gera o relatório usando o módulo Analise.hs
+            if null logs
+            then putStrLn "\n[INFO] Nenhum log encontrado para gerar relatorio."
+            else do
+                -- Gera o relatório principal
+                putStrLn $ formatarRelatorioCompleto tz logs
             
-            return inventario
+            putStrLn "\nDigite um ID de item para ver seu historico (ou aperte o ENTER para pular):"
+            putStr "> "
+            hFlush stdout
+            idInput <- getLine
+            
+            if null idInput
+            then return inventario
+            else do
+                let historico = historicoPorItem logs idInput
+                putStrLn $ "\n--- Historico para Item ID: " ++ idInput ++ " ---"
+                if null historico
+                then putStrLn "Nenhum registro encontrado para este item."
+                else 
+                    -- Imprime cada log formatado
+                    mapM_ (putStrLn . ("  " ++) . formatarLog tz) historico
+                
+                putStrLn "---------------------------------------------"
+                return inventario
 
         CmdHelp -> do
             mostrarAjuda
