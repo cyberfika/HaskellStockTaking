@@ -11,7 +11,6 @@ module IOPersistencia
     , arquivoAuditoria
     ) where
 
-
 -- ============================================================================
 -- CONSTANTES
 -- ============================================================================
@@ -23,7 +22,6 @@ arquivoInventario = "Inventario.dat"
 -- Nome do arquivo de auditoria (modo append-only)
 arquivoAuditoria :: FilePath
 arquivoAuditoria = "Auditoria.log"
-
 
 -- ============================================================================
 -- TIPOS DE DADOS
@@ -41,9 +39,8 @@ data Comando
     | CmdInvalido String                  -- comando inválido
     deriving (Show, Eq)
 
-
 -- ============================================================================
--- PARSER DE COMANDOS (FUNÇÃO PURA)
+-- PARSER DE COMANDOS
 -- ============================================================================
 
 -- Transforma a entrada do usuário em um Comando
