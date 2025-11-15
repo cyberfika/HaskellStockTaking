@@ -302,7 +302,7 @@ LogEntry {timestamp = 2025-11-11 22:01:57.435906613 UTC, acao = Add, detalhes = 
 LogEntry {timestamp = 2025-11-11 22:02:08.882197285 UTC, acao = Add, detalhes = "Adicionado item 'Mouse' (ID: 002) com quantidade 15 na categoria Perifericos", status = Sucesso}
 LogEntry {timestamp = 2025-11-11 22:02:17.65382862 UTC, acao = Add, detalhes = "Adicionado item 'Monitor' (ID: 003) com quantidade 5 na categoria Monitores", status = Sucesso}
 LogEntry {timestamp = 2025-11-11 22:05:45.181329383 UTC, acao = Add, detalhes = "Adicionado item 'Teclado_Gamer' (ID: 004) com quantidade 10 na categoria Perifericos", status = Sucesso}
-LogEntry {timestamp = 2025-11-11 22:05:56.640684341 UTC, acao = Remove, detalhes = "Falha ao remover do item ID: 004", status = Falha "Erro: Estoque insuficiente."}
+LogEntry {timestamp = 2025-11-11 22:05:56.640684341 UTC, acao = Remove, detalhes = "Falha ao remover do item ID: 004", status = Falha "Estoque insuficiente"}
 ```
 
 **Status:** [X] Passou | [ ] Falhou
