@@ -7,14 +7,14 @@
 **Professor:** Frank Coelho de Alcantara  
 **Atividade:** RA2 - Sistema de Inventário em Haskell
 
-### Equipe (em ordem de responsabilidade)
+### Equipe (em ordem alfabética)
 
 | Nome do Aluno | GitHub Username | Responsabilidade |
 |---------------|-----------------|------------------|
-| **Renato Pestana de Gouveia** | @rpgouveia | Arquitetura de Dados e Tipos |
-| **Fernando Alonso P. da Silva** | @fernandooal | Lógica de Negócio Pura (módulo funcional) |
-| **Jafte Carneiro Fagundes da Silva** | @cyberfika | Módulo de I/O, Persistência, Parser e Loop Principal |
 | **Ângelo Piovezan Jorgeto** | @PJorgeto | Análise de Logs, Validação, Documentação e Testes |
+| **Fernando Alonso Piroga da Silva** | @fernandooal | Lógica de Negócio Pura (módulo funcional) |
+| **Jafte Carneiro Fagundes da Silva** | @cyberfika | Módulo de I/O, Persistência, Parser e Loop Principal |
+| **Renato Pestana Gouveia** | @rpgouveia | Arquitetura de Dados e Tipos |
 
 ---
 
@@ -302,7 +302,7 @@ LogEntry {timestamp = 2025-11-11 22:01:57.435906613 UTC, acao = Add, detalhes = 
 LogEntry {timestamp = 2025-11-11 22:02:08.882197285 UTC, acao = Add, detalhes = "Adicionado item 'Mouse' (ID: 002) com quantidade 15 na categoria Perifericos", status = Sucesso}
 LogEntry {timestamp = 2025-11-11 22:02:17.65382862 UTC, acao = Add, detalhes = "Adicionado item 'Monitor' (ID: 003) com quantidade 5 na categoria Monitores", status = Sucesso}
 LogEntry {timestamp = 2025-11-11 22:05:45.181329383 UTC, acao = Add, detalhes = "Adicionado item 'Teclado_Gamer' (ID: 004) com quantidade 10 na categoria Perifericos", status = Sucesso}
-LogEntry {timestamp = 2025-11-11 22:05:56.640684341 UTC, acao = Remove, detalhes = "Falha ao remover do item ID: 004", status = Falha "Erro: Estoque insuficiente. Disponivel: 10, Solicitado: 15"}
+LogEntry {timestamp = 2025-11-11 22:05:56.640684341 UTC, acao = Remove, detalhes = "Falha ao remover do item ID: 004", status = Falha "Erro: Estoque insuficiente."}
 ```
 
 **Status:** [X] Passou | [ ] Falhou
@@ -556,5 +556,5 @@ Para dúvidas sobre o projeto, entre em contato com os membros da equipe atravé
 ---
 
 **Última atualização:** 14/11/2025  
-**Versão:** 1.3
+**Versão:** 1.4
 
