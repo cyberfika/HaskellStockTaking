@@ -4,10 +4,6 @@
 -- Responsável: Aluno 3 (Jafte Carneiro Fagundes da Silva)
 -- Objetivo: Gerenciar TODA a interação com arquivos, usuário e sistema
 -- ============================================================================
--- IMPORTANTE: Este arquivo contém APENAS funções IMPURAS (com IO)
--- Funções auxiliares puras estão em IOPersistencia.hs (parser)
--- ============================================================================
-
 
 import InventarioTipos
 import LogicaNegocio
@@ -19,9 +15,7 @@ import System.IO (hFlush, stdout)
 import Control.Exception (catch, IOException)
 
 
--- ============================================================================
 -- FUNÇÕES DE INICIALIZAÇÃO
--- ============================================================================
 
 carregarInventario :: IO Inventario
 carregarInventario = do
@@ -69,9 +63,8 @@ carregarLogs = do
         return ""
 
 
--- ============================================================================
+
 -- FUNÇÕES DE PERSISTÊNCIA
--- ============================================================================
 
 salvarInventario :: Inventario -> IO ()
 salvarInventario inventario = do
@@ -85,9 +78,7 @@ adicionarLogAuditoria logEntry = do
     putStrLn "[AUDITORIA] Log registrado em Auditoria.log"
 
 
--- ============================================================================
 -- FUNÇÕES AUXILIARES DE EXIBIÇÃO
--- ============================================================================
 
 imprimirItem :: Item -> IO ()
 imprimirItem item = do
@@ -127,9 +118,7 @@ mostrarAjuda = do
     putStrLn "==========================================\n"
 
 
--- ============================================================================
 -- PROCESSAMENTO DE COMANDOS
--- ============================================================================
 
 processarComando :: Comando -> Inventario -> IO Inventario
 processarComando cmd inventario = do
@@ -215,7 +204,6 @@ processarComando cmd inventario = do
             putStrLn "\n[INFO] Carregando logs para gerar relatorio..."
             logs <- carregarLogs
             
-            -- Faz um cálculo para definir o fuso horário de Brasília em relação ao UTC
             let tz = TimeZone { timeZoneMinutes = -180, timeZoneSummerOnly = False, timeZoneName = "BRT" }
             
             -- Gera o relatório usando o módulo Analise.hs
@@ -257,10 +245,7 @@ processarComando cmd inventario = do
             putStrLn "Digite 'help' para ver os comandos disponiveis.\n"
             return inventario
 
-
--- ============================================================================
 -- LOOP PRINCIPAL
--- ============================================================================
 
 loopPrincipal :: Inventario -> IO ()
 loopPrincipal inventario = do
@@ -278,9 +263,7 @@ loopPrincipal inventario = do
             loopPrincipal novoInventario
 
 
--- ============================================================================
 -- FUNÇÃO MAIN - PONTO DE ENTRADA
--- ============================================================================
 
 main :: IO ()
 main = do
