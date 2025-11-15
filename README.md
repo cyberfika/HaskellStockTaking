@@ -36,7 +36,7 @@ Sistema de gerenciamento de inventário desenvolvido em Haskell que implementa:
 
 O projeto pode ser executado diretamente no OnlineGDB:
 
-👉 **https://onlinegdb.com/0W81YtrSWi**
+👉 **https://onlinegdb.com/_YjO7C5-C**
 
 ---
 
