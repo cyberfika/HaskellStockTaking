@@ -36,7 +36,7 @@ Sistema de gerenciamento de inventário desenvolvido em Haskell que implementa:
 
 O projeto pode ser executado diretamente no OnlineGDB:
 
-👉 **https://onlinegdb.com/_YjO7C5-C**
+👉 **https://onlinegdb.com/74rIDCw5I**
 
 ---
 
@@ -71,13 +71,13 @@ ghc --make Main.hs -o inventario
 
 No OnlineGDB
 
-1.	Acesse: https://onlinegdb.com/_YjO7C5-C
+1.	Acesse: https://onlinegdb.com/74rIDCw5I
 2. Selecione linguagem: **Haskell**
 3. Copie todos os arquivos `.hs` para o editor (caso ainda não estejam todos lá)
 4. Certifique-se de que `Main.hs` está como arquivo principal
 5. Clique em **Run**
 
-Link alternativo: https://onlinegdb.com/NCmbds5V7
+Link alternativo: https://onlinegdb.com/4xRBpLCc1
 ---
 
 ---
