@@ -6,35 +6,21 @@
 -- ============================================================================
 -- IMPORTANTE: Este arquivo contém APENAS funções IMPURAS (com IO)
 -- Funções auxiliares puras estão em IOPersistencia.hs (parser)
--- Lógica de negócio pura está em LogicaNegocio.hs (Aluno 2)
 -- ============================================================================
 
--- Importa os tipos de dados definidos pelo Aluno 1
+
 import InventarioTipos
-
--- Importa as funções puras de lógica de negócio do Aluno 2
 import LogicaNegocio
-
--- Importa as funções PURAS de parsing (Aluno 3)
 import IOPersistencia (Comando(..), parseComando, arquivoInventario, arquivoAuditoria)
-
--- Importa o módulo Map para manipular o inventário
 import qualified Data.Map as Map
-
 import Analise (formatarRelatorioCompleto, historicoPorItem, formatarLog)
-
--- Importa funções de tempo
 import Data.Time (getCurrentTime, UTCTime, TimeZone(..))
-
--- Importa funções de I/O
 import System.IO (hFlush, stdout)
-
--- Importa tratamento de exceções
 import Control.Exception (catch, IOException)
 
 
 -- ============================================================================
--- FUNÇÕES DE INICIALIZAÇÃO (IMPURAS - fazem I/O)
+-- FUNÇÕES DE INICIALIZAÇÃO
 -- ============================================================================
 
 carregarInventario :: IO Inventario
@@ -84,7 +70,7 @@ carregarLogs = do
 
 
 -- ============================================================================
--- FUNÇÕES DE PERSISTÊNCIA (IMPURAS - escrevem em disco)
+-- FUNÇÕES DE PERSISTÊNCIA
 -- ============================================================================
 
 salvarInventario :: Inventario -> IO ()
@@ -100,7 +86,7 @@ adicionarLogAuditoria logEntry = do
 
 
 -- ============================================================================
--- FUNÇÕES AUXILIARES DE EXIBIÇÃO (IMPURAS - escrevem na tela)
+-- FUNÇÕES AUXILIARES DE EXIBIÇÃO
 -- ============================================================================
 
 imprimirItem :: Item -> IO ()
@@ -142,7 +128,7 @@ mostrarAjuda = do
 
 
 -- ============================================================================
--- PROCESSAMENTO DE COMANDOS (IMPURA - coordena I/O e lógica pura)
+-- PROCESSAMENTO DE COMANDOS
 -- ============================================================================
 
 processarComando :: Comando -> Inventario -> IO Inventario
@@ -229,7 +215,7 @@ processarComando cmd inventario = do
             putStrLn "\n[INFO] Carregando logs para gerar relatorio..."
             logs <- carregarLogs
             
-            -- Faz uma gambiarra para definir o fuso horário de Brasília
+            -- Faz um cálculo para definir o fuso horário de Brasília em relação ao UTC
             let tz = TimeZone { timeZoneMinutes = -180, timeZoneSummerOnly = False, timeZoneName = "BRT" }
             
             -- Gera o relatório usando o módulo Analise.hs
@@ -273,7 +259,7 @@ processarComando cmd inventario = do
 
 
 -- ============================================================================
--- LOOP PRINCIPAL (IMPURA - lê entrada do usuário)
+-- LOOP PRINCIPAL
 -- ============================================================================
 
 loopPrincipal :: Inventario -> IO ()
