@@ -18,9 +18,7 @@ import Data.Ord (comparing, Down(..))
 import Data.Time (TimeZone, utcToZonedTime, formatTime)
 import Data.Time.Format (defaultTimeLocale)
 
--- =============================================
 -- Funções de Análise Puras
--- =============================================
 
 -- Filtra a lista de logs, retornando apenas aqueles com status 'Falha'
 logsDeErro :: [LogEntry] -> [LogEntry]
@@ -68,9 +66,7 @@ extractSuccessItemID log
                Just match -> Just $ takeWhile (/= ')') (drop (length marker) match)
                Nothing    -> Nothing
 
--- =============================================
 -- Funções de Formatação de Relatório
--- =============================================
 
 -- Converte um LogEntry em uma String formatada para exibição
 formatarLog :: TimeZone -> LogEntry -> String

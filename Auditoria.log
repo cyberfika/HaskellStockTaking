@@ -8,3 +8,9 @@ LogEntry {timestamp = 2025-11-15 01:54:27.745835209 UTC, acao = Add, detalhes = 
 LogEntry {timestamp = 2025-11-15 01:54:45.40292362 UTC, acao = Remove, detalhes = "Falha ao remover do item ID: 001", status = Falha "Estoque insuficiente"}
 LogEntry {timestamp = 2025-11-15 01:55:01.316764906 UTC, acao = Remove, detalhes = "Falha ao remover do item ID: 004", status = Falha "Estoque insuficiente"}
 LogEntry {timestamp = 2025-11-15 01:55:17.66551079 UTC, acao = Add, detalhes = "Falha ao adicionar item ID: 001", status = Falha "Item com ID ja existe no inventario"}
+LogEntry {timestamp = 2025-11-15 02:17:24.217558024 UTC, acao = Add, detalhes = "Adicionado item 'Red_Bull' (ID: 008) com quantidade 35 na categoria Energeticos", status = Sucesso}
+LogEntry {timestamp = 2025-11-15 02:17:45.882445892 UTC, acao = Add, detalhes = "Adicionado item 'Monster_Energy' (ID: 009) com quantidade 28 na categoria Energeticos", status = Sucesso}
+LogEntry {timestamp = 2025-11-15 02:17:58.383844103 UTC, acao = Add, detalhes = "Adicionado item 'Cha_Verde_Matte_Leao' (ID: 010) com quantidade 55 na categoria Chas", status = Sucesso}
+LogEntry {timestamp = 2025-11-15 02:18:30.38384989 UTC, acao = Remove, detalhes = "Removidas 10 unidades do item 'Johnnie_Walker' (ID: 001)", status = Sucesso}
+LogEntry {timestamp = 2025-11-15 02:18:42.65572241 UTC, acao = Remove, detalhes = "Removidas 5 unidades do item 'Pepsi' (ID: 002)", status = Sucesso}
+LogEntry {timestamp = 2025-11-15 02:18:52.09957683 UTC, acao = Update, detalhes = "Atualizada quantidade do item 'Red_Bull' (ID: 008) para 40", status = Sucesso}
